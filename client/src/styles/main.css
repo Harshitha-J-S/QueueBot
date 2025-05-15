@@ -1,0 +1,137 @@
+/* Global Layout */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #eef1f7;
+  color: #333;
+}
+
+.app-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Logo Styling */
+.logo {
+  width: 120px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* Container Blocks */
+.login-container,
+.signup-container,
+.feedback-section,
+.dashboard-container {
+  background: #ffffff;
+  padding: 2rem;
+  margin: 2rem auto;
+  border-radius: 12px;
+  max-width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Headings */
+h2 {
+  color: #003366;
+  margin-bottom: 1rem;
+}
+
+/* Input & Select Styling */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.2s ease;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #0055a5;
+  outline: none;
+}
+
+/* Buttons */
+button {
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #0055a5;
+}
+
+/* Signup Specific */
+.signup-container h2 {
+  text-align: center;
+}
+
+.signup-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Queue Styling */
+.queue-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.queue-list li {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.queue-list li.done {
+  color: gray;
+  text-decoration: line-through;
+  font-style: italic;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.actions input {
+  width: 60px;
+  text-align: center;
+}
+.actions button {
+  padding: 0.3rem 0.8rem;
+}
+
+/* Feedback Section */
+.feedback-section textarea {
+  min-height: 100px;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .login-container,
+  .signup-container,
+  .feedback-section,
+  .dashboard-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+}
