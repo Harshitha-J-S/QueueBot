@@ -1,0 +1,45 @@
+name: MERN CI Workflow
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  install-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # Install backend dependencies
+    - name: Install backend dependencies
+      working-directory: ./backend
+      run: npm install
+
+    # Install frontend dependencies
+    - name: Install frontend dependencies
+      working-directory: ./frontend
+      run: npm install
+
+    # Run backend tests (if any)
+    - name: Run backend tests
+      working-directory: ./backend
+      run: npm test
+
+    # Run frontend tests (if any)
+    - name: Run frontend tests
+      working-directory: ./frontend
+      run: npm test
+
+    # Build frontend
+    - name: Build frontend
+      working-directory: ./frontend
+      run: npm run build
