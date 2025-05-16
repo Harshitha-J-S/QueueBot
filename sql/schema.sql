@@ -1,44 +1,11 @@
-// Main React file structure and backend setup using MySQL will go here.
-// Since this is a full project, the setup will be divided into:
-// - React frontend (React + CSS)
-// - Node.js backend (Express + MySQL)
-// - DB schema setup
-// - Sample styling (college-themed)
-// - Sample logo placement
+USE queuebot;
 
-// Folder Structure
-// /client
-//    /public
-//       - index.html
-//       - logo.png (Ramaiah logo)
-//    /src
-//       - App.js
-//       - components/
-//          - Login.js
-//          - Feedback.js
-//          - StudentDashboard.js
-//          - VendorDashboard.js
-//          - QueueCard.js
-//       - styles/
-//          - main.css
-// /server
-//    - index.js
-//    - routes/
-//       - auth.js
-//       - queue.js
-//       - vendor.js
-//    - config/
-//       - db.js
-// /sql
-//    - schema.sql
-
-// --- /sql/schema.sql ---
-/* SQL schema for QueueBot using MySQL */
-
+ 
 CREATE TABLE shops (
   shop_number INT PRIMARY KEY,
   name VARCHAR(100) NOT NULL UNIQUE
 );
+
 
 CREATE TABLE users (
   usn VARCHAR(20) PRIMARY KEY,
@@ -50,6 +17,7 @@ CREATE TABLE users (
   shop_number INT,
   FOREIGN KEY (shop_number) REFERENCES shops(shop_number) ON DELETE SET NULL
 );
+
 
 CREATE TABLE queues (
   id INT AUTO_INCREMENT PRIMARY KEY,

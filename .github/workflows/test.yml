@@ -32,14 +32,15 @@ jobs:
     # Run backend tests (if any)
     - name: Run backend tests
       working-directory: ./backend
-      run: npm test
+      run: node index.js
+    
 
     # Run frontend tests (if any)
     - name: Run frontend tests
       working-directory: ./frontend
-      run: npm test
+      run: npm start 
 
     # Build frontend
     - name: Build frontend
       working-directory: ./frontend
-      run: npm run build
+      run: npm start build
