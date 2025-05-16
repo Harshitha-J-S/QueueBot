@@ -1,4 +1,4 @@
-name: MERN CI Workflow
+name: CI for Print Queue Management
 
 on:
   push:
@@ -7,40 +7,49 @@ on:
     branches: [main]
 
 jobs:
-  install-and-build:
+  build-and-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    strategy:
+      matrix:
+        node-version: [18.x]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    # Install backend dependencies
-    - name: Install backend dependencies
-      working-directory: ./backend
-      run: npm install
+      - name: 📦 Install backend dependencies
+        working-directory: ./server
+        run: npm install
 
-    # Install frontend dependencies
-    - name: Install frontend dependencies
-      working-directory: ./frontend
-      run: npm install
+      - name: 📦 Install frontend dependencies
+        working-directory: ./client
+        run: npm install
 
-    # Run backend tests (if any)
-    - name: Run backend tests
-      working-directory: ./backend
-      run: node index.js
-    
+      - name: 🧪 Run backend tests
+        working-directory: ./server
+        run: npm test
 
-    # Run frontend tests (if any)
-    - name: Run frontend tests
-      working-directory: ./frontend
-      run: npm start 
+      - name: 🧪 Run frontend tests
+        working-directory: ./client
+        run: npm test
 
-    # Build frontend
-    - name: Build frontend
-      working-directory: ./frontend
-      run: npm start build
+      - name: 🛠 Build frontend
+        working-directory: ./client
+        run: npm run build
+
+      - name: 🧹 Lint backend (optional)
+        working-directory: ./server
+        run: npm run lint || echo "Lint skipped or failed"
+
+      - name: 🧹 Lint frontend (optional)
+        working-directory: ./client
+        run: npm run lint || echo "Lint skipped or failed"
