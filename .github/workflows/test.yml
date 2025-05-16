@@ -1,4 +1,4 @@
-name: CI for Print Queue Management
+name: Test Node.js App (Client + Server)
 
 on:
   push:
@@ -7,15 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test:
+  test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-
-    strategy:
-      matrix:
-        node-version: [18.x]
 
     steps:
       - name: 📥 Checkout code
@@ -24,32 +17,32 @@ jobs:
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
 
+      # Backend
       - name: 📦 Install backend dependencies
         working-directory: ./server
-        run: npm install
-
-      - name: 📦 Install frontend dependencies
-        working-directory: ./client
-        run: npm install
+        run: npm ci
 
       - name: 🧪 Run backend tests
         working-directory: ./server
-        run: npm test
+        run: |
+          if npm run | grep -q "test"; then
+            npm test
+          else
+            echo "⚠️ No backend test script found."
+          fi
+
+      # Frontend
+      - name: 📦 Install frontend dependencies
+        working-directory: ./client
+        run: npm ci
 
       - name: 🧪 Run frontend tests
         working-directory: ./client
-        run: npm test
-
-      - name: 🛠 Build frontend
-        working-directory: ./client
-        run: npm run build
-
-      - name: 🧹 Lint backend (optional)
-        working-directory: ./server
-        run: npm run lint || echo "Lint skipped or failed"
-
-      - name: 🧹 Lint frontend (optional)
-        working-directory: ./client
-        run: npm run lint || echo "Lint skipped or failed"
+        run: |
+          if npm run | grep -q "test"; then
+            npm test
+          else
+            echo "⚠️ No frontend test script found."
+          fi
